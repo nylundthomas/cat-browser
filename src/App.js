@@ -15,7 +15,7 @@ const App = () => {
   const [view, setView] = useState({
     viewAll: true, viewFavorites: false, viewUploadForm: false
   })
-  const [upload, setUpload] = useState({url: '', inProgress: false})
+  const [upload, setUpload] = useState({ url: '', inProgress: false })
   const [breeds, setBreeds] = useState([])
   const [popUp, setPopUp] = useState({
     visible: false,
@@ -35,7 +35,7 @@ const App = () => {
     catService
       .getRandom()
       .then(response => {
-        //console.log(response.data)
+        console.log(response.data)
         setCats(response.data)
       })
       .catch(error => {
@@ -47,7 +47,7 @@ const App = () => {
     catService
       .getFavorites()
       .then(response => {
-        //console.log(response.data)
+        console.log(response.data)
         setFavorites(response.data)
       })
       .catch(error => {
@@ -59,8 +59,8 @@ const App = () => {
     catService
       .getBreeds()
       .then(response => {
-        //console.log(response.data)
-        const breeds = response.data.map(breed => { return {value: breed.id, label: breed.name } })
+        console.log(response.data)
+        const breeds = response.data.map(breed => { return { value: breed.id, label: breed.name } })
         setBreeds(breeds)
       })
       .catch(error => {
@@ -105,17 +105,17 @@ const App = () => {
   }
 
   const viewAllCats = () => {
-    setUpload({url: '', inProgress: false})
+    setUpload({ url: '', inProgress: false })
     setView({ viewAll: true, viewFavorites: false, viewUploadForm: false })
   }
 
   const viewFavorites = () => {
-    setUpload({url: '', inProgress: false})
+    setUpload({ url: '', inProgress: false })
     setView({ viewAll: false, viewFavorites: true, viewUploadForm: false })
   }
-  
+
   const viewUploadForm = () => {
-    setUpload({url: '', inProgress: false})
+    setUpload({ url: '', inProgress: false })
     setView({ viewAll: false, viewFavorites: false, viewUploadForm: true })
   }
 
@@ -142,12 +142,12 @@ const App = () => {
   }
 
   const onFileUpload = formData => {
-    setUpload({url: '', inProgress: true})
+    setUpload({ url: '', inProgress: true })
     catService
       .uploadImage(formData)
       .then(response => {
         //console.log(response.data)
-        setUpload({url: response.data.url, inProgress: false})
+        setUpload({ url: response.data.url, inProgress: false })
       })
       .catch(error => {
         console.log(error);
@@ -157,15 +157,20 @@ const App = () => {
   const onFilter = breed => {
     console.log('searching for: ', breed.value)
     catService
-    .getBreed(breed.value)
-    .then(response => {
-      console.log(response.data)
-      setCats(response.data)
-    })
-    .catch(error => {
-      console.log(error);
-    })
+      .getBreed(breed.value)
+      .then(response => {
+        console.log(response.data)
+        setCats(response.data)
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
+
+  const favoriteCheck = id => (favorites.find(f => f.image_id === id) ) ? 'Unfavorite' : 'Favorite'
+  
+
+  //console.log(favoriteCheck(cats[0].id))
 
   return (
     <div className="flex-container">
@@ -176,36 +181,38 @@ const App = () => {
         <Button text={'Upload Cat Image'} handleClick={viewUploadForm} />
       </div>
       {view.viewAll &&
-          <Filter breeds={breeds} handleClick={onFilter}/>
-        }
+        <Filter breeds={breeds} handleClick={onFilter} />
+      }
       <div className="flex-container-list">
         {view.viewAll &&
-          cats.map(cat =>
-            <Card key={cat.id} cat={cat} 
-                  favorites={favorites} 
-                  handleFavoriteClick={toggleFavorite} 
-                  handleImageClick={togglePopUp} 
+          cats.map(cat => {
+            return <Card key={cat.id} cat={cat}
+              favorites={favorites}
+              handleFavoriteClick={toggleFavorite}
+              handleImageClick={togglePopUp}
+              btnText={favoriteCheck(cat.id)} 
             />
+          }
           )
         }
         {popUp.visible &&
-          <PopUp favorites={favorites} 
-                  popUp={popUp} 
-                  handleFavoriteClick={toggleFavorite} 
-                  handleCloseClick={togglePopUp} />
+          <PopUp favorites={favorites}
+            popUp={popUp}
+            handleFavoriteClick={toggleFavorite}
+            handleCloseClick={togglePopUp} />
         }
         {view.viewFavorites &&
           favorites.map(favorite =>
-            <FavoriteCard key={favorite.id} 
-                          favorite={favorite} 
-                          handleFavoriteClick={toggleFavorite} 
-                          handleImageClick={togglePopUp} />
+            <FavoriteCard key={favorite.id}
+              favorite={favorite}
+              handleFavoriteClick={toggleFavorite}
+              handleImageClick={togglePopUp} />
           )
         }
         {view.viewUploadForm &&
-          <UploadForm uploadUrl={upload.url} 
-                      uploadInProgress={upload.inProgress} 
-                      handleFileUpload={onFileUpload}/>
+          <UploadForm uploadUrl={upload.url}
+            uploadInProgress={upload.inProgress}
+            handleFileUpload={onFileUpload} />
         }
       </div>
     </div>
