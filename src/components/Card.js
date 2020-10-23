@@ -1,7 +1,7 @@
 import React from 'react'
 import './Card.css'
 
-const Card = ({btnText, cat, favorites, handleFavoriteClick, handleImageClick }) => {
+const Card = ({btnText, cat, handleFavoriteClick, handleImageClick }) => {
     const name = cat.breeds[0] ? cat.breeds[0].name : 'unknown'
     const { id, url } = cat
 

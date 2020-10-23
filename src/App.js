@@ -35,7 +35,7 @@ const App = () => {
     catService
       .getRandom()
       .then(response => {
-        console.log(response.data)
+        //console.log(response.data)
         setCats(response.data)
       })
       .catch(error => {
@@ -47,7 +47,7 @@ const App = () => {
     catService
       .getFavorites()
       .then(response => {
-        console.log(response.data)
+        //console.log(response.data)
         setFavorites(response.data)
       })
       .catch(error => {
@@ -59,7 +59,7 @@ const App = () => {
     catService
       .getBreeds()
       .then(response => {
-        console.log(response.data)
+        //console.log(response.data)
         const breeds = response.data.map(breed => { return { value: breed.id, label: breed.name } })
         setBreeds(breeds)
       })
@@ -159,7 +159,7 @@ const App = () => {
     catService
       .getBreed(breed.value)
       .then(response => {
-        console.log(response.data)
+        //console.log(response.data)
         setCats(response.data)
       })
       .catch(error => {
