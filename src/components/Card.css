@@ -1,0 +1,27 @@
+.card {
+    height: 225px;
+    width: 220px;
+    margin: 5px;
+    border: 3px solid lightseagreen;
+}
+
+.card img {
+    height: 190px;
+    width: 220px;
+    object-fit: cover;
+}
+
+.card p {
+    margin: 0;
+}
+
+.card button {
+    font-family: TitilliumWeb-Regular;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 3px;
+}

@@ -1,0 +1,20 @@
+.flex-container {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.flex-container-buttons {
+  display: flex;
+  width: 99%;
+  height: 40px;
+  justify-content: center;
+  background-color: lightseagreen;
+}
+
+.flex-container-list {
+  display: flex;
+  width: 95%;
+  flex-flow: row wrap;
+  justify-content: center;
+}

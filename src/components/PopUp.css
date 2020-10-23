@@ -1,0 +1,52 @@
+.modal {
+    width: 100%;
+    height: 100%;
+}
+
+.modal_content {
+    display: flex;
+    background-color: white;
+    position: fixed;
+    margin: 0 auto;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 70%;
+    height: 85%;
+    padding:10px;
+    border-radius: 5px;
+    border: 3px solid lightseagreen;
+  }
+
+  .popUp_img {
+      padding: 0px 10px 0px 10px;
+      width: 500px;
+      height: 600px;
+      object-fit: cover;
+  }
+  
+  .close {
+    color: Black;
+    font-family: TitilliumWeb-Bold;
+  }
+
+  .close:hover {
+    color: red;
+    cursor: pointer;
+  }
+
+  .info h4 {
+    margin: 10px 0px 10px 0px;
+  }
+
+  .info p {
+    margin: 0;
+  }
+
+  .bolder {
+    font-family: TitilliumWeb-Bold;
+  }
+
+  .info button {
+    font-family: TitilliumWeb-Regular;
+  }

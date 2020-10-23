@@ -1,0 +1,45 @@
+.uploadForm {
+    height: 600px;
+    width: 600px;
+    margin: 10px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.uploadForm h3 {
+    color: lightseagreen
+}
+
+.uploadForm p {
+    color: lightseagreen
+}
+
+.uploadFormMid {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    width: 60%;
+}
+
+.uploadFormButtons {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.uploadFormMid p {
+    margin: 5px 0px;
+}
+
+.uploadFormConfirmation {
+    display: flex;
+    align-items: center;
+}
+
+.uploadForm img {
+    height: 480px;
+    width: 600px;
+    object-fit: cover;
+    margin: 0px;
+}

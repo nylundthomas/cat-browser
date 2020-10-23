@@ -1,0 +1,27 @@
+.favoriteCard {
+    height: 425px;
+    width: 420px;
+    margin: 10px;
+    border: 2px solid lightseagreen;
+}
+
+.favoriteCardImg {
+    height: 390px;
+    width: 420px;
+    object-fit: cover;
+}
+
+.favoriteCard p {
+    margin: 0;
+}
+
+.cardFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 3px;
+}
+
+.cardFooter button {
+    font-family: TitilliumWeb-Regular;
+}
