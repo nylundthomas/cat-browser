@@ -2,7 +2,7 @@ import React from 'react'
 import './Card.css'
 
 const Card = ({btnText, cat, handleFavoriteClick, handleImageClick }) => {
-    const name = cat.breeds[0] ? cat.breeds[0].name : 'unknown'
+    const name = cat.breeds[0].name
     const { id, url } = cat
 
     const handleClick = (id, btnText) => {

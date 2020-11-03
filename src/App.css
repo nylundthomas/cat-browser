@@ -18,3 +18,26 @@
   flex-flow: row wrap;
   justify-content: center;
 }
+
+.pagination a {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid lightseagreen;
+  font-family: TitilliumWeb-Regular;
+  border-color: grey;
+  background-color: white;
+  transition-duration: 0.4s;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  cursor: pointer;
+  width: 60%;
+}
+
+.pagination a:hover {
+  background-color: lightgray; 
+}
+

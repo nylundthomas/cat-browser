@@ -1,12 +1,12 @@
 import axios from 'axios'
 const baseUrl = 'https://api.thecatapi.com/v1/'
 
-const getRandom = () => {
-    return axios.get(`${baseUrl}images/search?limit=25&has_breeds=true&format=json`,
+const getAll = (page = 0) => {
+    return axios.get(`${baseUrl}images/search?order=asc&has_breeds=1&page=${page}&limit=20`,
         {
             headers: {
                 'Content-type': 'application/json',
-                'x-api-key': process.env.REACT_APP_CAT_API_KEY 
+                'x-api-key': process.env.REACT_APP_CAT_API_KEY
             }
         }
     )
@@ -90,7 +90,7 @@ const getBreed = id => {
 }
 
 export default {
-    getRandom: getRandom,
+    getAll: getAll,
     getOne: getOne,
     addToFavorites: addToFavorites,
     getFavorites: getFavorites,
