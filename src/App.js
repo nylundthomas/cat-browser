@@ -246,6 +246,8 @@ const App = () => {
         }
         {popUp.visible && (
           <PopUp
+            disableBtn={setBtnDisabled}
+            disabled={btnDisabled}
             favorites={favorites}
             popUp={popUp}
             handleFavoriteClick={toggleFavorite}
@@ -255,6 +257,8 @@ const App = () => {
         {view.viewFavorites &&
           favorites.map((favorite) => (
             <FavoriteCard
+              disableBtn={setBtnDisabled}
+              disabled={btnDisabled}
               key={favorite.id}
               favorite={favorite}
               handleFavoriteClick={toggleFavorite}

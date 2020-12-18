@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './PopUp.css'
 
-const PopUp = ({ favorites, popUp, handleCloseClick, handleFavoriteClick }) => {
+const PopUp = ({ disabled, disableBtn, favorites, popUp, handleCloseClick, handleFavoriteClick }) => {
     const { id, url, name, life_span, description, origin, intelligence, affection_level, child_friendly, dog_friendly } = popUp
     const [btnText, setText] = useState('')
 
@@ -10,8 +10,11 @@ const PopUp = ({ favorites, popUp, handleCloseClick, handleFavoriteClick }) => {
     }, [favorites, id])
 
     const handleClick = (id, btnText) => {
-        handleFavoriteClick(id, btnText)
-        btnText === 'Favorite' ? setText('Unfavorite') : setText('Favorite')
+        if (!disabled) {
+            disableBtn(true)
+            handleFavoriteClick(id, btnText)
+            btnText === 'Favorite' ? setText('Unfavorite') : setText('Favorite')
+        }
     }
 
 
@@ -25,7 +28,7 @@ const PopUp = ({ favorites, popUp, handleCloseClick, handleFavoriteClick }) => {
                     <img className="popUp_img" src={url} alt={"large image of" + name} />
                 </div>
                 <div className="info">
-                    <button onClick={() => handleClick(id, btnText)}>{btnText}</button>
+                    <button disabled={disabled} onClick={() => handleClick(id, btnText)}>{btnText}</button>
                     <h4>Breed Information</h4>
                     <p><span className="bolder">ID:</span> {id}</p>
                     <p><span className="bolder">Name:</span> {name}</p>
