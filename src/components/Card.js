@@ -1,12 +1,15 @@
 import React from 'react'
 import './Card.css'
 
-const Card = ({btnText, cat, handleFavoriteClick, handleImageClick }) => {
+const Card = ({ disabled, disableBtn, btnText, cat, handleFavoriteClick, handleImageClick }) => {
     const name = cat.breeds[0].name
     const { id, url } = cat
 
     const handleClick = (id, btnText) => {
-        handleFavoriteClick(id, btnText)
+        if (!disabled) {
+            disableBtn(true)
+            handleFavoriteClick(id, btnText)
+        }
     }
 
     return (
@@ -14,7 +17,7 @@ const Card = ({btnText, cat, handleFavoriteClick, handleImageClick }) => {
             <img src={url} alt={"image of " + name} onClick={() => handleImageClick(id)} />
             <div className="card-footer">
                 <p>{name}</p>
-                <button onClick={() => handleClick(id, btnText)}>{btnText}</button>
+                <button disabled={disabled} onClick={() => handleClick(id, btnText)}>{btnText}</button>
             </div>
         </div>
     )

@@ -38,6 +38,7 @@ const App = () => {
     child_friendly: null,
     dog_friendly: null,
   });
+  const [btnDisabled, setBtnDisabled] = useState(false)
 
   useEffect(() => {
     catService
@@ -84,6 +85,7 @@ const App = () => {
   }, []);
 
   const toggleFavorite = (id, btnText) => {
+
     if (btnText === "Favorite") {
       catService
         .addToFavorites(id)
@@ -94,6 +96,7 @@ const App = () => {
         .then((response) => {
           //console.log(response.data)
           setFavorites(response.data);
+          setBtnDisabled(false)
         })
         .catch((error) => {
           console.log(error);
@@ -111,6 +114,7 @@ const App = () => {
         .then((response) => {
           //console.log(response.data)
           setFavorites(response.data);
+          setBtnDisabled(false)
         })
         .catch((error) => {
           console.log(error);
@@ -226,6 +230,8 @@ const App = () => {
             if (cat.breeds[0]) {
               return (
                 <Card
+                  disableBtn={setBtnDisabled}
+                  disabled={btnDisabled}
                   key={cat.id}
                   cat={cat}
                   favorites={favorites}
