@@ -17,7 +17,6 @@ const PopUp = ({ disabled, disableBtn, favorites, popUp, handleCloseClick, handl
         }
     }
 
-
     return (
         <div className="modal">
             <div className="modal_content">

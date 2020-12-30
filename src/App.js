@@ -43,7 +43,7 @@ const App = () => {
   useEffect(() => {
     catService
       .getAll()
-      .then((response) => {
+      .then(response => {
         //console.log(response.data)
         setCats(response.data);
         setPagination({
@@ -52,7 +52,7 @@ const App = () => {
           pageCount: (response.headers['pagination-count'] / response.headers['pagination-limit']),
         })
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }, []);
@@ -60,11 +60,11 @@ const App = () => {
   useEffect(() => {
     catService
       .getFavorites()
-      .then((response) => {
-        //console.log(response.data)
-        setFavorites(response.data);
+      .then(allFavorites => {
+        //console.log(allFavorites)
+        setFavorites(allFavorites);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }, []);
@@ -72,14 +72,14 @@ const App = () => {
   useEffect(() => {
     catService
       .getBreeds()
-      .then((response) => {
-        //console.log(response.data)
-        const breeds = response.data.map((breed) => {
+      .then(allOfBreed => {
+        //console.log(allOfBreed)
+        const breeds = allOfBreed.map((breed) => {
           return { value: breed.id, label: breed.name };
         });
         setBreeds(breeds);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }, []);
@@ -89,16 +89,16 @@ const App = () => {
     if (btnText === "Favorite") {
       catService
         .addToFavorites(id)
-        .then((response) => {
-          //console.log(response.data)
+        .then(message => {
+          //console.log(message)
           return catService.getFavorites();
         })
-        .then((response) => {
-          //console.log(response.data)
-          setFavorites(response.data);
+        .then(allFavorites => {
+          //console.log(allFavorites)
+          setFavorites(allFavorites);
           setBtnDisabled(false)
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     }
@@ -107,16 +107,16 @@ const App = () => {
       const favorite = favorites.find((f) => f.image.id === id);
       catService
         .deleteFromFavorites(favorite.id)
-        .then((response) => {
-          //console.log(response.data)
+        .then(message => {
+          //console.log(message)
           return catService.getFavorites();
         })
-        .then((response) => {
-          //console.log(response.data)
-          setFavorites(response.data);
+        .then(allFavorites => {
+          //console.log(allFavorites)
+          setFavorites(allFavorites);
           setBtnDisabled(false)
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error);
         });
     }
@@ -125,6 +125,21 @@ const App = () => {
   const viewAllCats = () => {
     setUpload({ url: "", inProgress: false });
     setView({ viewAll: true, viewFavorites: false, viewUploadForm: false });
+    
+    catService
+      .getAll()
+      .then(response => {
+        //console.log(response.data)
+        setCats(response.data);
+        setPagination({
+          currentPage: response.headers['pagination-page'],
+          perPageLimit: response.headers['pagination-limit'],
+          pageCount: (response.headers['pagination-count'] / response.headers['pagination-limit']),
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const viewFavorites = () => {
@@ -172,11 +187,11 @@ const App = () => {
     setUpload({ url: "", inProgress: true });
     catService
       .uploadImage(formData)
-      .then((response) => {
-        //console.log(response.data)
-        setUpload({ url: response.data.url, inProgress: false });
+      .then(imageObject => {
+        //console.log(imageObject)
+        setUpload({ url: imageObject.url, inProgress: false });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -185,23 +200,22 @@ const App = () => {
     console.log("searching for: ", breed.value);
     catService
       .getBreed(breed.value)
-      .then((response) => {
-        //console.log(response.data)
-        setCats(response.data);
+      .then(response => {
+        console.log(response)
+        setCats(response);
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
 
-  const favoriteCheck = (id) =>
-    favorites.find((f) => f.image_id === id) ? "Unfavorite" : "Favorite";
+  const favoriteCheck = (id) => favorites.find((f) => f.image_id === id) ? "Unfavorite" : "Favorite";
 
   const handlePageClick = ({ selected }) => {
     console.log(selected)
     catService
       .getAll(selected)
-      .then((response) => {
+      .then(response => {
         console.log(response.data)
         setCats(response.data);
         setPagination({
@@ -210,7 +224,7 @@ const App = () => {
           pageCount: (response.headers['pagination-count'] / response.headers['pagination-limit']),
         })
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -273,7 +287,7 @@ const App = () => {
           />
         )}
       </div>
-      {view.viewAll &&
+      { (view.viewAll && cats.length >= 16) &&
         <ReactPaginate
           pageCount={pagination.pageCount}
           onPageChange={handlePageClick}
